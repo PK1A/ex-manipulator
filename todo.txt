@@ -1,0 +1,1 @@
+- travis CI with FFox + Chrome + Sauce => make it work on IE8+

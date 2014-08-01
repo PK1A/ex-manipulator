@@ -1,0 +1,33 @@
+{
+  "name": "ex-manipulator",
+  "version": "0.0.0",
+  "description": "ex-manipulator ==============",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PK1A/ex-manipulator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PK1A/ex-manipulator/issues"
+  },
+  "homepage": "https://github.com/PK1A/ex-manipulator",
+  "devDependencies": {
+    "gulp": "~3.8.6",
+    "karma": "~0.12.19",
+    "gulp-uglify": "~0.3.1",
+    "gulp-rename": "~1.2.0",
+    "gulp-concat": "~2.3.4",
+    "mocha": "~1.21.3",
+    "karma-mocha": "~0.1.6",
+    "karma-commonjs": "0.0.10",
+    "chai": "~1.9.1",
+    "karma-chai": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.4",
+    "karma-firefox-launcher": "~0.1.3"
+  }
+}
