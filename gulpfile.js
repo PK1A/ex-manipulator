@@ -10,12 +10,16 @@ gulp.task('test', function(done) {
         frameworks: ['mocha', 'chai', 'commonjs'],
         files: ['src/*.js', 'test/*spec.js'],
         preprocessors: {
-            'src/**/*.js': ['commonjs'],
+            'src/**/*.js': ['coverage', 'commonjs'],
             'test/**/*.spec.js': ['commonjs']
         },
         browsers: ['Firefox'],
         singleRun: true,
-        reporters: ['dots']
+        reporters: ['dots', 'coverage'],
+        coverageReporter: {
+            type : 'lcovonly',
+            dir : 'dist/coverage/'
+        }
     }, done);
 });
 

@@ -4,6 +4,7 @@ node_js:
 
 before_install:
  - travis_retry npm install -g gulp
+ - travis_retry npm install -g coveralls@2.8.0 &> install-coveralls.log
 
 before_script:
  - export DISPLAY=:99.0
@@ -11,3 +12,6 @@ before_script:
 
 script:
  - gulp
+
+after_success:
+ - cat dist/coverage/*/lcov.info | coveralls && echo "Successfully sent coverage to https://coveralls.io"
