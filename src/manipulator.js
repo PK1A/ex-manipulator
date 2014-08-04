@@ -5,10 +5,14 @@ var UNARY_OPERATORS = {
     '-': function (right) { return -right; },
     '[': function (right) { return right; }, //array literal
     '{': function (right) { //object literal
-        return right.reduce(function(fullObj, keyVal){
-            fullObj[keyVal.k] = keyVal.v;
-            return fullObj;
-        }, {})
+
+        var result = {};
+        for (var i = 0; i < right.length; i++) {
+            var keyVal = right[i];
+            result[keyVal.k] = keyVal.v;
+        }
+
+        return result;
     }
 };
 
@@ -42,19 +46,27 @@ var TERNARY_OPERATORS = {
 function getTreeValue(tree, scope) {
 
     var operatorFn, result;
+    var parsedVal, argExp, arrayResult;
 
     if (tree instanceof Array) {
-        return tree.map(function (argExp) {
-            var parsedVal, result;
-            result = parsedVal = getTreeValue(argExp, scope);
-            if (argExp.key) {
-                result = {
-                    k: argExp.key,
-                    v: parsedVal
-                };
+
+        if (tree.length > 0) {
+            result = new Array(tree.length);
+            for (var i = 0; i < tree.length; i++) {
+                argExp = tree[i];
+                arrayResult = parsedVal = getTreeValue(argExp, scope);
+                if (argExp.key) {
+                    arrayResult = {
+                        k: argExp.key,
+                        v: parsedVal
+                    };
+                }
+                result[i] = arrayResult;
             }
-            return result;
-        })
+        } else {
+            result = [];
+        }
+        return result;
     }
 
     if (tree.a === 'literal') {
