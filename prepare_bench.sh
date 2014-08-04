@@ -1,0 +1,2 @@
+browserify --standalone exm${1} src/manipulator.js > ../ex-manipulator-bench/lib/ex-manipulator/exm${1}.js
+browserify --standalone exp${1} src/parser.js > ../ex-manipulator-bench/lib/ex-manipulator/exp${1}.js

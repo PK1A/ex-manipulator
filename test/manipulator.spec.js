@@ -119,7 +119,7 @@ describe('expression evaluation - getter', function () {
             }
         };
 
-        expect(expression('collection | all').getValue(scope)).to.deep.equal(scope.collection);
+        expect(expression('collection | all').getValue(scope)).to.eql(scope.collection);
         expect(expression('collection | all | item:1').getValue(scope)).to.equal('bar');
         expect(expression('collection | item:0 | item:1').getValue(scope)).to.equal('o');
         expect(expression('collection | item:1').getValue(scope)).to.equal('bar');
@@ -201,17 +201,17 @@ describe('expression evaluation - getter', function () {
     });
 
     it('should allow array literals in expressions', function() {
-        expect(expression('[1]').getValue({})).to.deep.equal([1]);
-        expect(expression('[1, 2]').getValue({})).to.deep.equal([1, 2]);
-        expect(expression('[1, [1 , 2]]').getValue({})).to.deep.equal([1, [1, 2]]);
+        expect(expression('[1]').getValue({})).to.eql([1]);
+        expect(expression('[1, 2]').getValue({})).to.eql([1, 2]);
+        expect(expression('[1, [1 , 2]]').getValue({})).to.eql([1, [1, 2]]);
         expect(expression('[1, 2][1]').getValue({})).to.equal(2);
         expect(expression('[1, 2] | first').getValue({first: function(input){ return input[0];}})).to.equal(1);
     });
 
     it('should allow object lirerals in expressions', function() {
-        expect(expression("{foo: 'bar'}").getValue({})).to.deep.equal({foo: 'bar'});
-        expect(expression("{foo: 'bar', foo2: 'baz'}").getValue({})).to.deep.equal({foo: 'bar', foo2: 'baz'});
-        expect(expression("{foo: {foo2: 'baz'}}").getValue({})).to.deep.equal({foo: {foo2: 'baz'}});
+        expect(expression("{foo: 'bar'}").getValue({})).to.eql({foo: 'bar'});
+        expect(expression("{foo: 'bar', foo2: 'baz'}").getValue({})).to.eql({foo: 'bar', foo2: 'baz'});
+        expect(expression("{foo: {foo2: 'baz'}}").getValue({})).to.eql({foo: {foo2: 'baz'}});
     });
 });
 

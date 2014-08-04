@@ -7,7 +7,7 @@ var rename = require('gulp-rename');
 
 gulp.task('test', function(done) {
     karma.start({
-        frameworks: ['mocha', 'chai', 'commonjs'],
+        frameworks: ['mocha', 'expect', 'commonjs'],
         files: ['src/*.js', 'test/*spec.js'],
         preprocessors: {
             'src/**/*.js': ['coverage', 'commonjs'],
