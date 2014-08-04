@@ -84,8 +84,8 @@ function getTreeValue(tree, scope) {
  * @param {String} input - expression to handle
  * @return {Object} an object with the methods described below
  */
-module.exports = function(input) {
-    var tree = ast(input);
+module.exports = function(input, inputTree) {
+    var tree = inputTree || ast(input);
 
     return {
         /**
