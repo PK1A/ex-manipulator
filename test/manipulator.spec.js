@@ -16,14 +16,14 @@ describe('expression evaluation - getter', function () {
     });
 
     it('should evaluate boolean literals', function() {
-        expect(expression('false').getValue({})).to.be.false;
-        expect(expression('true').getValue({})).to.be.true;
-        expect(expression('o.false').getValue({o :{'false': true}})).to.be.true;
+        expect(expression('false').getValue({})).to.equal(false);
+        expect(expression('true').getValue({})).to.equal(true);
+        expect(expression('o.false').getValue({o :{'false': true}})).to.equal(true);
     });
 
     it('should not allow overriding built in JS constants', function() {
-        expect(expression('false').getValue({'false': true})).to.be.false;
-        expect(expression('null').getValue({'null': 'not null'})).to.be.null;
+        expect(expression('false').getValue({'false': true})).to.equal(false);
+        expect(expression('null').getValue({'null': 'not null'})).to.equal(null);
     });
 
     it('should get value of literal numeric expressions', function() {
@@ -134,33 +134,33 @@ describe('expression evaluation - getter', function () {
     });
 
     it('should evaluate expressions containing simple comparison (<, >)', function() {
-        expect(expression('1 < 2').getValue({})).to.be.true;
-        expect(expression('1 > 2').getValue({})).to.be.false;
-        expect(expression('1 > foo').getValue({foo: 2})).to.be.false;
+        expect(expression('1 < 2').getValue({})).to.equal(true);
+        expect(expression('1 > 2').getValue({})).to.equal(false);
+        expect(expression('1 > foo').getValue({foo: 2})).to.equal(false);
     });
 
     it('should evaluate expressions containing 2-char comparisons (<=, >=, ==)', function() {
-        expect(expression('1 <= 2').getValue({})).to.be.true;
-        expect(expression('2 <= 2').getValue({})).to.be.true;
-        expect(expression('1 >= 2').getValue({})).to.be.false;
-        expect(expression('1 >= foo').getValue({foo: 2})).to.be.false;
-        expect(expression('2 == foo').getValue({foo: 2})).to.be.true;
-        expect(expression('2 != 3').getValue({foo: 2})).to.be.true;
-        expect(expression('"2" == 2').getValue({foo: 2})).to.be.true;
+        expect(expression('1 <= 2').getValue({})).to.equal(true);
+        expect(expression('2 <= 2').getValue({})).to.equal(true);
+        expect(expression('1 >= 2').getValue({})).to.equal(false);
+        expect(expression('1 >= foo').getValue({foo: 2})).to.equal(false);
+        expect(expression('2 == foo').getValue({foo: 2})).to.equal(true);
+        expect(expression('2 != 3').getValue({foo: 2})).to.equal(true);
+        expect(expression('"2" == 2').getValue({foo: 2})).to.equal(true);
     });
 
     it('should evaluate expressions containing 2-char comparisons (!==, ===)', function() {
-        expect(expression('2 === foo').getValue({foo: 2})).to.be.true;
-        expect(expression('"2" === 2').getValue({foo: 2})).to.be.false;
-        expect(expression('"2" !== 2').getValue({foo: 2})).to.be.true;
+        expect(expression('2 === foo').getValue({foo: 2})).to.equal(true);
+        expect(expression('"2" === 2').getValue({foo: 2})).to.equal(false);
+        expect(expression('"2" !== 2').getValue({foo: 2})).to.equal(true);
     });
 
     it('should evaluate expressions containing boolean AND / OR (&& / ||)', function() {
-        expect(expression('true && true').getValue({})).to.be.true;
-        expect(expression('true && false').getValue({})).to.be.false;
-        expect(expression('true || false').getValue({})).to.be.true;
-        expect(expression('true || true').getValue({})).to.be.true;
-        expect(expression('false || false').getValue({})).to.be.false;
+        expect(expression('true && true').getValue({})).to.equal(true);
+        expect(expression('true && false').getValue({})).to.equal(false);
+        expect(expression('true || false').getValue({})).to.equal(true);
+        expect(expression('true || true').getValue({})).to.equal(true);
+        expect(expression('false || false').getValue({})).to.equal(false);
     });
 
     it('should support the ternary operator', function() {
@@ -175,11 +175,11 @@ describe('expression evaluation - getter', function () {
     });
 
     it('should evaluate expressions with boolean negation (!) operator', function() {
-        expect(expression('!false').getValue({})).to.be.true;
-        expect(expression('!true').getValue({})).to.be.false;
-        expect(expression('!foo').getValue({foo: false})).to.be.true;
-        expect(expression('!!foo').getValue({foo: 1})).to.be.true;
-        expect(expression('!!foo').getValue({foo: 0})).to.be.false;
+        expect(expression('!false').getValue({})).to.equal(true);
+        expect(expression('!true').getValue({})).to.equal(false);
+        expect(expression('!foo').getValue({foo: false})).to.equal(true);
+        expect(expression('!!foo').getValue({foo: 1})).to.equal(true);
+        expect(expression('!!foo').getValue({foo: 0})).to.equal(false);
     });
 
     it('should evaluate expressions with arithmetic minus (-) operator', function() {
