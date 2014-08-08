@@ -98,6 +98,8 @@ function getTreeValue(tree, scope) {
  */
 module.exports = function(input, inputTree) {
     var tree = inputTree || ast(input);
+    //AST needs to have an identifier or binary . at the root to be assignable
+    var isAssignable = tree.a === 'idn' || (tree.a === 'bnr' && tree.v === '.');
 
     return {
         /**
@@ -115,12 +117,16 @@ module.exports = function(input, inputTree) {
          * @param {*} a new value for a given expression and scope
          */
         setValue: function(scope, newValue) {
-            //AST needs to have an identifier or binary . at the top to be assignable
+            if (!isAssignable) {
+               throw new Error('Expression "' + input + '" is not assignable');
+            }
+
             if (tree.a === 'idn') {
                 scope[tree.v] = newValue;
             } else if (tree.a === 'bnr' && tree.v === '.') {
                 getTreeValue(tree.l, scope)[tree.r.v] = newValue;
             }
-        }
+        },
+        isAssignable : isAssignable
     };
 };
