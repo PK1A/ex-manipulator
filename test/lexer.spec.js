@@ -176,4 +176,11 @@ describe('lexer', function () {
         });
     });
 
+    describe('error conditions', function () {
+        it('should throw on unrecognised token', function () {
+            expect(function () {
+                lexer('a^b')
+            }).to.throwError(/Error parsing "a\^b": unknown token \^ at 1/);
+        });
+    });
 });
