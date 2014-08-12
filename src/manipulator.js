@@ -123,7 +123,7 @@ module.exports = function(input, inputTree) {
 
             if (tree.a === 'idn') {
                 scope[tree.v] = newValue;
-            } else if (tree.a === 'bnr' && tree.v === '.') {
+            } else if (tree.a === 'bnr') {
                 getTreeValue(tree.l, scope)[tree.r.v] = newValue;
             }
         },
