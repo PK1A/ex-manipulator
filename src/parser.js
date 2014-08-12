@@ -1,7 +1,7 @@
 var lexer = require('./lexer');
 
 var SYMBOLS = {};
-var tokens, token, tokenIdx;
+var tokens, token, tokenIdx = 0;
 
 var BaseSymbol = {
     nud: function () {
@@ -285,9 +285,12 @@ module.exports = function (input) {
     token = undefined;
     tokenIdx = 0;
 
-    advance(); //get the first token
-    var expr = expression(0);
-    //advance('(end)'); //make sure that we are at the end of an expression
-
-    return expr;
+    if (tokens.length) {
+        advance(); //get the first token
+        var expr = expression(0);
+        advance('(end)'); //make sure that we are at the end of an expression
+        return expr;
+    } else {
+        return {f: 0, a: 'literal', v: undefined};
+    }
 };

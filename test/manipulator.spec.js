@@ -3,8 +3,7 @@ var expression = require('./../src/manipulator');
 describe('expression evaluation - getter', function () {
 
     it('should return undefined for empty expressions', function() {
-        //TODO: protect the whole thing from empty expressions
-        //expect(expression('').getValue({})).to.be(undefined);
+        expect(expression('').getValue({})).to.be(undefined);
     });
 
     it('should get value of literal string expressions', function() {
@@ -258,5 +257,12 @@ describe('expression evaluation - setter', function () {
     });
 });
 
+//TODO: "corner" cases:
+//- assigning to something that evaluates to non-object (null, undefined, etc.)
+//- null / undefined in property access
+
 //TODO: error condition handling
 //- non-closed brackets ( [ {
+//- using function call on something that is not a function
+//- using [] . on something that is not an object
+
