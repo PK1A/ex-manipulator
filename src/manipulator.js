@@ -6,9 +6,9 @@ var UNARY_OPERATORS = {
     '[': function (right) { return right; }, //array literal
     '{': function (right) { //object literal
 
-        var result = {};
+        var result = {}, keyVal;
         for (var i = 0; i < right.length; i++) {
-            var keyVal = right[i];
+            keyVal = right[i];
             result[keyVal.k] = keyVal.v;
         }
 
