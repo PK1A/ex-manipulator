@@ -1,1 +1,22 @@
+- parser:
+    - observable pairs
+        - all identifiers => observe scope with an identifier path
+        - . operator => observe left-hand side on right-hand side path
+        - [] operator => similar to . but what about arg ->
+    - multiple scopes
+    - undefined values for operators
+    - bullet-prof error handling
+    - optimisations
+        - tree size:
+            - drop the from info
+            - operator names
+            - objects => arrays
+        - access time:
+            - path access optimisation
+            - constant folding
+    - add index.js with entry points?
+    - what about one-time binding => it sounds like a separate concern...
+- multi-expression parser
+    - make delimits configurable => it is not obvious in the CJS env :-/
+
 - travis CI with FFox + Chrome + Sauce => make it work on IE8+

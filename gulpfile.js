@@ -23,6 +23,19 @@ gulp.task('test', function(done) {
     }, done);
 });
 
+gulp.task('tdd', function(done) {
+    karma.start({
+        frameworks: ['mocha', 'expect', 'commonjs'],
+        files: ['src/*.js', 'test/*spec.js'],
+        preprocessors: {
+            'src/**/*.js': ['commonjs'],
+            'test/**/*.js': ['commonjs']
+        },
+        browsers: ['Chrome'],
+        reporters: ['progress']
+    }, done);
+});
+
 gulp.task('default', ['test'], function () {
 
     gulp.src('src/*.js')

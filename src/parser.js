@@ -248,7 +248,7 @@ function advance(id) {
         throw new Error("Unexpected token:" + v)
     }
     token = Object.create(o);
-    token.f  = inputToken.f;
+    //token.f  = inputToken.f;
     token.v = v;
     token.a = tokenType;
 
