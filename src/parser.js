@@ -189,7 +189,7 @@ infix("(", 80, function (left) {
         this.a = 'bnr';
         this.l = left;
         this.r = a;
-        if ((left.a !== 'unr' || left.id !== "function") &&
+        if (left.a !== 'unr' &&
             left.a !== "idn" && left.id !== "(" &&
             left.id !== "&&" && left.id !== "||" && left.id !== "?") {
 
