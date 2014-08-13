@@ -1,6 +1,6 @@
 var expression = require('./../src/manipulator');
 
-describe('expression evaluation - getter', function () {
+describe('getValue', function () {
 
     it('should return undefined for empty expressions', function() {
         expect(expression('').getValue({})).to.be(undefined);
@@ -214,7 +214,29 @@ describe('expression evaluation - getter', function () {
     });
 });
 
-describe('expression evaluation - setter', function () {
+describe('getValue with defaults', function () {
+
+    describe('simple expressions', function () {
+        it('should handle default values for undefined', function () {
+            expect(expression("foo").getValue({}, 'bar')).to.equal('bar');
+            expect(expression("foo").getValue({foo: undefined}, 'bar')).to.equal('bar');
+        });
+
+        it('should handle default values for null', function () {
+            expect(expression("foo").getValue({foo: null}, 'bar')).to.equal('bar');
+        });
+
+        it('should handle default values for NaN', function () {
+            expect(expression("foo").getValue({foo: NaN}, 5)).to.equal(5);
+        });
+
+        it('detecting NaN values should not be too eager', function () {
+            expect(expression("{}").getValue({}, 5)).to.eql({});
+        });
+    });
+});
+
+describe('setValue', function () {
 
     it('should set values of simple assignable expressions', function() {
         var scope = {

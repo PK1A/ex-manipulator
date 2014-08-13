@@ -19,8 +19,13 @@ module.exports = function(input, inputTree) {
          * @param scope
          * @return {*} - value of an expression in a given scope
          */
-        getValue: function(scope) {
-            return evaluator(tree, scope)
+        getValue: function(scope, defaultValue) {
+            var val = evaluator(tree, scope);
+            if( typeof defaultValue === 'undefined') {
+                return val;
+            } else {
+                return (val === undefined || val === null || val != val) ? defaultValue : val;
+            }
         },
         /**
          * Sets value of an expression on a scope. Not all expressions
