@@ -1,3 +1,7 @@
+function forgivingPropertyAccessor(left, right) {
+    return typeof left === 'undefined' || left === null ? undefined : left[right];
+}
+
 var UNARY_OPERATORS = {
     '!': function (right) { return !right; },
     '-': function (right) { return -right; },
@@ -30,13 +34,18 @@ var BINARY_OPERATORS = {
     '!==': function (left, right) { return left !== right; },
     '||': function (left, right) { return left || right; },
     '&&': function (left, right) { return left && right; },
-    '.': function (left, right) { return left[right]; },
-    '[': function (left, right) { return left[right]; },
-    '(': function (left, right) { return left.apply(left, right); }
+    '(': function (left, right) { //function call on a scope
+        return left.apply(left, right);
+    },
+    '.': forgivingPropertyAccessor,
+    '[': forgivingPropertyAccessor
 };
 
 var TERNARY_OPERATORS = {
-    '(': function (target, name, args) { return (target[name]).apply(target, args); }, //function call
+    '(': function (target, name, args) { //function call on an object
+        return typeof target === 'undefined' || target === null ?
+            undefined : target[name].apply(target, args);
+    },
     '?': function (test, trueVal, falseVal) { return test ? trueVal : falseVal; },
     '|': function (input, pipeFn, args) { return pipeFn.apply(pipeFn, [input].concat(args)); } //pipe (filter)
 };

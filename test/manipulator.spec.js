@@ -214,6 +214,24 @@ describe('getValue', function () {
     });
 });
 
+describe('forgiving evaluation of expressions', function () {
+    it('should forgive . on undefined', function () {
+        expect(expression("foo.bar").getValue({})).to.equal(undefined);
+        expect(expression("foo.bar").getValue({foo : null})).to.equal(undefined);
+        expect(expression("foo.bar.baz").getValue({})).to.equal(undefined);
+    });
+
+    it('should forgive [ on undefined', function () {
+        expect(expression("foo['bar']").getValue({})).to.equal(undefined);
+        expect(expression("foo['bar']['baz']").getValue({})).to.equal(undefined);
+    });
+
+    it('should forgive function calls on undefined', function () {
+        expect(expression("foo.bar()").getValue({})).to.equal(undefined);
+        expect(expression("foo.bar()").getValue({foo: null})).to.equal(undefined);
+    });
+});
+
 describe('getValue with defaults', function () {
 
     describe('simple expressions', function () {
